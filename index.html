@@ -3,13 +3,82 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>我的網站</title>
-  <style>
-    body { font-family: system-ui, "Microsoft JhengHei", sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; line-height: 1.6; }
-  </style>
+  <title>Sabbi's World</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>我的網站</h1>
-  <p>這是用 GitHub Pages 建立的網站。</p>
+  <!-- 捲動進度：臘腸狗的身體會跟著變長 -->
+  <div class="progress" aria-hidden="true">
+    <div class="dog" style="--dh: 30px">
+      <svg class="dog-rear" viewBox="0 0 50 50"><use href="#dog-rear"/></svg>
+      <div class="dog-body" id="progress-body"></div>
+      <svg class="dog-front" viewBox="0 0 72 50"><use href="#dog-front"/></svg>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <video id="avatar" class="avatar" autoplay muted loop playsinline preload="auto"></video>
+      <div>
+        <p class="kicker" id="breed"></p>
+        <h1 id="title"></h1>
+        <p class="intro" id="intro"></p>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="dog dog-hero" style="--dh: 64px" aria-hidden="true">
+        <svg class="dog-rear" viewBox="0 0 50 50"><use href="#dog-rear"/></svg>
+        <div class="dog-body"></div>
+        <svg class="dog-front" viewBox="0 0 72 50"><use href="#dog-front"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <nav class="years-nav" aria-label="年份">
+    <div class="wrap" id="years-nav"></div>
+  </nav>
+
+  <main class="wrap" id="timeline"></main>
+
+  <footer class="footer"></footer>
+
+  <div id="lightbox" class="lightbox" hidden>
+    <button class="lb-close" aria-label="關閉">×</button>
+    <button class="lb-prev" aria-label="上一張">‹</button>
+    <figure>
+      <img id="lb-img" alt="">
+      <figcaption id="lb-cap"></figcaption>
+    </figure>
+    <button class="lb-next" aria-label="下一張">›</button>
+  </div>
+
+  <!-- 臘腸狗零件：後半身、前半身（中間的身體用 CSS 伸縮） -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="dog-rear">
+        <path d="M16 20 Q6 16 3 5" fill="none" style="stroke:var(--dog)" stroke-width="4" stroke-linecap="round"/>
+        <rect x="27" y="28" width="7" height="18" rx="3.5" style="fill:var(--dog-dark)"/>
+        <path d="M51 14 H24 A10 10 0 0 0 24 34 H51 Z" style="fill:var(--dog)"/>
+        <rect x="19" y="28" width="7" height="18" rx="3.5" style="fill:var(--dog)"/>
+      </g>
+      <g id="dog-front">
+        <rect x="23" y="28" width="7" height="18" rx="3.5" style="fill:var(--dog-dark)"/>
+        <path d="M-1 14 H20 A10 10 0 0 1 20 34 H-1 Z" style="fill:var(--dog)"/>
+        <rect x="13" y="28" width="7" height="18" rx="3.5" style="fill:var(--dog)"/>
+        <path d="M18 24 L36 12" style="stroke:var(--dog)" stroke-width="15" stroke-linecap="round"/>
+        <path d="M21 22 L31 16" style="stroke:var(--collar)" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="42" cy="11" rx="12" ry="9.5" style="fill:var(--dog)"/>
+        <ellipse cx="56" cy="15" rx="12" ry="6" style="fill:var(--dog)"/>
+        <path d="M35 5 Q27 9 30 26 Q37 28 40 18 Q41 9 35 5 Z" style="fill:var(--dog-dark)"/>
+        <circle cx="47" cy="9" r="2" style="fill:var(--dog-ink)"/>
+        <circle cx="67" cy="14" r="2.8" style="fill:var(--dog-ink)"/>
+        <path d="M58 20 Q62 22 65 20" fill="none" style="stroke:var(--dog-ink)" stroke-width="1.4" stroke-linecap="round"/>
+      </g>
+    </defs>
+  </svg>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

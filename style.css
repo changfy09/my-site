@@ -1,0 +1,193 @@
+:root {
+  --bg: #fbf5ec;
+  --surface: #fffdf9;
+  --text: #3b2a1e;
+  --muted: #8a7462;
+  --border: #eadccb;
+  --accent: #b5602c;
+  --accent-soft: #f5e2cf;
+  --dog: #b5602c;
+  --dog-dark: #8a4419;
+  --dog-ink: #2b1b12;
+  --collar: #d94b4b;
+  --shadow: 0 4px 16px rgba(90, 50, 20, 0.10);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1e1814;
+    --surface: #2a221c;
+    --text: #f3e9df;
+    --muted: #b9a594;
+    --border: #3e332a;
+    --accent: #e08a52;
+    --accent-soft: #46301f;
+    --dog: #c8723a;
+    --dog-dark: #94501f;
+    --dog-ink: #120b07;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, "Microsoft JhengHei", "PingFang TC", sans-serif;
+  line-height: 1.7;
+}
+
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- 臘腸狗元件 ---------- */
+.dog { display: flex; align-items: flex-start; height: var(--dh); }
+.dog svg { height: var(--dh); flex-shrink: 0; overflow: visible; }
+.dog-rear { width: var(--dh); }
+.dog-front { width: calc(var(--dh) * 1.44); }
+.dog-body {
+  height: calc(var(--dh) * 0.4);
+  margin-top: calc(var(--dh) * 0.28);
+  background: var(--dog);
+  flex: 1;
+  margin-left: -1px; margin-right: -1px;
+  background-image: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0, .08) 70%);
+}
+
+/* 捲動進度狗 */
+.progress {
+  position: fixed; left: 0; right: 0; bottom: 8px; z-index: 5;
+  padding: 0 12px; pointer-events: none;
+}
+.progress .dog-body { flex: 0 0 auto; width: 0; }
+
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(160deg, var(--accent-soft), transparent 70%);
+  padding: 48px 0 24px;
+}
+.hero-inner { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+.avatar {
+  width: 220px; height: 220px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+  border: 6px solid var(--surface); box-shadow: var(--shadow);
+}
+.kicker { margin: 0; color: var(--accent); font-weight: 600; letter-spacing: .1em; }
+.hero h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.2; }
+.intro { margin: 8px 0 0; }
+.stats { margin: 6px 0 0; color: var(--muted); font-size: .92rem; }
+.dog-hero { margin-top: 32px; }
+
+/* ---------- 年份導覽（骨頭形狀） ---------- */
+.years-nav {
+  position: sticky; top: 0; z-index: 4;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+}
+.years-nav .wrap { display: flex; gap: 14px; padding-top: 10px; padding-bottom: 10px; overflow-x: auto; }
+.bone {
+  position: relative; flex-shrink: 0;
+  padding: 4px 18px; margin: 0 8px;
+  background: var(--surface); color: var(--text);
+  border-radius: 6px; text-decoration: none; font-weight: 600;
+  box-shadow: 0 1px 0 var(--border);
+}
+.bone::before, .bone::after {
+  content: ""; position: absolute; top: 50%; width: 16px; height: 30px; transform: translateY(-50%);
+  background:
+    radial-gradient(circle at 50% 28%, var(--surface) 7px, transparent 7.5px),
+    radial-gradient(circle at 50% 72%, var(--surface) 7px, transparent 7.5px);
+}
+.bone::before { left: -9px; }
+.bone::after { right: -9px; }
+.bone.active { background: var(--accent); color: #fff; }
+.bone.active::before, .bone.active::after {
+  background:
+    radial-gradient(circle at 50% 28%, var(--accent) 7px, transparent 7.5px),
+    radial-gradient(circle at 50% 72%, var(--accent) 7px, transparent 7.5px);
+}
+
+/* ---------- 年度區塊 ---------- */
+.year { padding: 40px 0 8px; }
+.year-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.year-head h2 {
+  margin: 0; font-size: clamp(2.6rem, 9vw, 4.2rem); line-height: 1;
+  color: var(--accent); font-weight: 800; letter-spacing: -.02em;
+}
+.year-head .meta { color: var(--muted); }
+.year-note {
+  margin: 14px 0 0; padding: 12px 16px; max-width: 680px;
+  background: var(--surface); border-left: 4px solid var(--accent); border-radius: 0 10px 10px 0;
+}
+
+/* 每年一排，左右滑動 */
+.carousel { position: relative; margin-top: 20px; }
+.strip {
+  display: flex; gap: 14px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding: 0 4px;
+  padding: 6px 4px 18px;
+  scrollbar-width: thin; scrollbar-color: var(--accent-soft) transparent;
+}
+.photo {
+  flex: 0 0 280px; scroll-snap-align: start;
+  margin: 0; cursor: zoom-in;
+  background: var(--surface); border-radius: 14px; overflow: hidden;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  transition: transform .2s;
+}
+.photo:hover { transform: translateY(-3px); }
+.photo img {
+  display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
+  background: var(--accent-soft);
+}
+.carousel .nav {
+  position: absolute; top: calc(50% - 30px); z-index: 2;
+  width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--surface); color: var(--accent); font-size: 1.8rem; line-height: 1;
+  box-shadow: var(--shadow); transition: opacity .2s;
+}
+.carousel .prev { left: -8px; }
+.carousel .next { right: -8px; }
+.carousel .nav:disabled { opacity: 0; pointer-events: none; }
+@media (hover: none) { .carousel .nav { display: none; } }
+.photo figcaption { padding: 8px 12px; font-size: .88rem; }
+.photo .date { color: var(--muted); font-size: .8rem; display: block; }
+
+/* 年與年之間：一隻長長的臘腸狗 */
+.divider { margin: 36px 0 0; text-align: center; color: var(--muted); font-size: .9rem; }
+.divider .dog { margin: 6px auto 0; max-width: 100%; }
+
+/* ---------- Lightbox ---------- */
+.lightbox {
+  position: fixed; inset: 0; background: rgba(20, 12, 6, .9); z-index: 10;
+  display: flex; align-items: center; justify-content: center; padding: 16px;
+}
+.lightbox[hidden] { display: none; }
+.lightbox figure { margin: 0; text-align: center; max-width: 100%; }
+.lightbox img { max-width: 100%; max-height: 82vh; border-radius: 8px; }
+.lightbox figcaption { color: #f3e9df; margin-top: 10px; }
+.lightbox button {
+  position: absolute; width: 46px; height: 46px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255, 255, 255, .15); color: #fff; font-size: 1.7rem; line-height: 1;
+}
+.lb-close { top: 16px; right: 16px; }
+.lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+
+.footer { text-align: center; color: var(--muted); padding: 56px 0 72px; }
+
+@media (max-width: 560px) {
+  .hero-inner { gap: 16px; }
+  .avatar { width: 160px; height: 160px; }
+  .strip { gap: 10px; scroll-snap-type: x mandatory; scroll-padding: 0 16px; margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+  .photo { flex-basis: 78vw; }
+  .lb-prev, .lb-next { top: auto; bottom: 20px; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .photo { transition: none; }
+}
