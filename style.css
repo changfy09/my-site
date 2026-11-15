@@ -70,7 +70,9 @@ body {
 }
 .hero-inner { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
 .avatar {
-  width: 220px; height: 220px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+  width: 250px; height: 250px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+  object-position: 50% 15%; /* 畫面焦點（左右% 上下%），臉被切到可以調這裡 */
+  background: var(--accent-soft);
   border: 6px solid var(--surface); box-shadow: var(--shadow);
 }
 .kicker { margin: 0; color: var(--accent); font-weight: 600; letter-spacing: .1em; }
@@ -181,7 +183,7 @@ body {
 
 @media (max-width: 560px) {
   .hero-inner { gap: 16px; }
-  .avatar { width: 160px; height: 160px; }
+  .avatar { width: min(210px, 60vw); height: min(210px, 60vw); }
   .strip { gap: 10px; scroll-snap-type: x mandatory; scroll-padding: 0 16px; margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
   .photo { flex-basis: 78vw; }
   .lb-prev, .lb-next { top: auto; bottom: 20px; transform: none; }

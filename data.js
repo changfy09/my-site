@@ -7,7 +7,6 @@ window.DOG = {
   name: "Sabbi",
   breed: "Dachshund",
   born: "Born June 2010",
-  avatar: "photos/sabbi/thumbs/2024-03-12-01.jpg",   // 影片載入前顯示的圖
   avatarVideo: "photos/sabbi/avatar.mp4",           // 大頭照影片（靜音循環播放）
 };
 
